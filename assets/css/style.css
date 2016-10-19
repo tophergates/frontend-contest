@@ -1,0 +1,471 @@
+/** NORMALIZE STYLES **/
+*, :after, :before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.618rem;
+}
+
+body {
+  color: #ffffff;
+  font-family: "Open Sans", arial, sans-serif;
+  font-weight: 300;
+  min-width: 300px;
+}
+
+article, aside, canvas, footer, header, main, menu, nav, section {
+  display: block;
+}
+
+a, a:link, a:visited, a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background: black url('../img/back.png') center bottom repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  animation: backgroundScroll 15s linear infinite;
+}
+
+@keyframes backgroundScroll {
+  from {background-position: 0 0;}
+  to {background-position: 1000px 0;}
+}
+
+nav {
+  /*background: rgb(75,54,124);*/
+  background: rgba(57,46,92,.9);
+  border-bottom: 2px solid #4C387D;
+  font-family: "Press Start 2P";
+  height: 3.75rem;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+}
+
+#brand {
+  background: rgba(57,46,92,.5);
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+  transition: all .3s ease-in;
+}
+
+#brand h1 {
+  font-size: 0.85rem;
+  display: none;
+}
+
+#brand h1 a {
+  color: white;
+  text-decoration: none;
+}
+
+#brand h1 a:hover {
+
+}
+
+/* MOBILE NAVIGATION ICON */
+#nav-icon {
+  display: block;
+  float: right;
+  width: 2rem;
+  height: 100%;
+  position: relative;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .5s ease-in-out;
+  -moz-transition: .5s ease-in-out;
+  -o-transition: .5s ease-in-out;
+  -ms-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+  cursor: pointer;
+}
+
+#nav-icon span {
+  position: absolute;
+  height: 0.25rem;
+  width: 100%;
+  background: white;
+  border-radius: 9px;
+  opacity: 0.95;
+  left: 0;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .25s ease-in-out;
+  -moz-transition: .25s ease-in-out;
+  -o-transition: .25s ease-in-out;
+  -ms-transform: .25s ease-in-out;
+  transition: .25s ease-in-out;
+}
+
+#nav-icon span:nth-child(1) {
+  top: 0;
+}
+
+#nav-icon span:nth-child(2), #nav-icon span:nth-child(3) {
+  top: 0.5rem;
+}
+
+#nav-icon span:nth-child(4) {
+  top: 1rem;
+}
+
+#nav-icon.open span:nth-child(1) {
+  top: 0;
+  width: 0%;
+  left: 50%;
+}
+
+#nav-icon.open span:nth-child(2) {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+#nav-icon.open span:nth-child(3) {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+#nav-icon.open span:nth-child(4) {
+  top: 18px;
+  width: 0%;
+  left: 50%;
+}
+
+nav ul {
+  background-color: rgba(57,46,92,.9);
+  border-top: 2px solid #4C387D;
+  border-bottom: 1px solid #4C387D;
+  font-size: 0.65rem;
+  visibility: collapse;
+  list-style: none;
+  height: 0;
+  transition: all 0.15s linear;
+  width: 100%;
+}
+
+nav ul li a {
+  display: none;
+}
+
+nav ul.open {
+  visibility: visible;
+  height: 21rem;
+  transition: all 0.15s linear;
+}
+
+nav ul.open li a {
+  display: block;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.5rem;
+}
+
+main {
+  padding-top: 3.75rem;
+}
+
+.notification-bar {
+  background-color: rgba(186,186,186, 0.75);
+  padding: 0.5rem 1rem;
+  width: 100%;
+  zoom: 1;
+}
+
+.notification-bar p::before, .notification-bar p::after {
+  content: "";
+  display: table;
+}
+
+.notification-bar p::after {
+  clear: both;
+}
+
+.notification-bar p {
+  color: #000;
+}
+
+.notification-bar a {
+  float: right;
+  background: rgba(0,54,124,0.95);
+  border-radius: 5px;
+  color: #cdcdcd;
+  font-weight: bold;
+  padding: 0.2rem 0.5rem;
+  box-shadow: 0 0 .9rem 0.15rem #666;
+}
+
+.notification-bar a:hover {
+  : 2px solid red;
+}
+
+.hero {
+  padding: 1rem;
+  margin-top: 15%;
+  text-align: center;
+}
+
+.hero h1 {
+  font-family: "Press Start 2P";
+  font-size: 1.75rem;
+  line-height: 4rem;
+  padding: 0.25rem 0;
+  text-shadow: 4px 0px #4C387D;
+}
+
+.hero h1 small {
+  font-size: 1rem;
+}
+
+.hero p {
+  line-height: 1.5rem;
+}
+
+.hero p:nth-child(2){
+  color: #cdcdcd;
+}
+
+.hero form {
+  padding-top: 0.5rem;
+  margin-top: 2.5rem;
+}
+
+.hero input[name="email"] {
+  font-family: "Press Start 2P";
+  font-size: 0.75rem;
+  background: rgba(15, 15, 15, 0.5);
+  box-shadow: 0 0 2.25rem 0.25rem #000;
+  border: 0px solid transparent;
+  color: rgb(0, 195, 50);
+  animation: blink-empty 1s infinite;
+  border-left: 10px solid transparent;
+  margin: 0.25rem;
+  padding: 0.5rem 0.25rem;
+}
+
+.hero input[name="email"]:focus {
+  animation: none;
+  border-left: 10px solid  #ADD8E6;
+}
+
+@keyframes blink-empty {
+  50% {border-left: 10px solid  #ADD8E6;}
+}
+
+.hero input[name="email"]:focus {
+  outline: none;
+}
+
+.hero input[type="submit"] {
+  font-size: 0.85rem;
+  color: #fefefe;
+  border: 1px solid #4C387D;
+  background: rgba(70,54,124,0.65);
+/*  background: rgba(76, 127, 215, 0.75); */
+  cursor: pointer;
+  text-transform: uppercase;
+  padding: 0.25rem 1.1rem;
+  margin: 0.75rem 0;
+}
+
+#gameWrapper {
+  position: relative;
+  display: none;
+  margin: 3.25rem auto 0 auto;
+  width: 600px;
+  height: 360px;
+  box-shadow: 0px 0px 1rem 2px rgba(250,30,10,0.25);
+  border-radius: 8px;
+}
+
+#gameWrapper canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: transparent;
+  width: 100%;
+  height: 100%;
+}
+
+#background {
+  z-index: 1;
+}
+#main {
+  z-index: 2;
+}
+#ship, .game-element {
+  z-index: 3;
+}
+
+.score {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  text-shadow: 0px 0px #999;
+  font-family: Helvetica, sans-serif;
+  cursor: default;
+}
+.game-over {
+  font-family: "Press Start 2P";
+  position: absolute;
+  top: 150px;
+  left: 230px;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: Helvetica, sans-serif;
+  font-size: 30px;
+  cursor: default;
+  display: none;
+}
+.game-over span {
+  font-size: 20px;
+  cursor: pointer;
+  position: relative;
+  left: 50px;
+}
+.game-over span:hover {
+  color: #FFD700;
+}
+#mute {
+  position: absolute;
+  top: 340px;
+  right: 10px;
+  cursor: pointer;
+}
+.start-screen {
+  font-family: "Press Start 2P";
+  position: absolute;
+  top: 150px;
+  left: 185px;
+  color: #FF7F00;
+  font-family: Helvetica, sans-serif;
+  font-size: 30px;
+  cursor: default;
+  display: none;
+}
+#startBtn {
+  padding: 5px 0;
+  border: 2px solid black;
+  border-radius: 2px;
+  background-color: #ccc;
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
+  margin-top: 10px;
+  color: #999;
+}
+#startBtn:hover {
+  color: #333;
+}
+.loading {
+  position: absolute;
+  top: 100px;
+  left: 210px;
+  color: #FF7F00;
+  font-family: Helvetica, sans-serif;
+  font-size: 30px;
+  cursor: default;
+}
+
+footer {
+  background: -webkit-linear-gradient(top, #acacac 0%, #fefefe 100%);
+  color: #333333;
+  font-size: 0.85rem;
+  height: 5.75rem;
+  padding: 2rem 0.25rem;
+}
+
+footer ul {
+  list-style: none;
+}
+
+footer ul li {
+  display: inline;
+}
+
+footer ul li a, footer ul li a:link, footer ul li a:visited {
+  color: #333333;
+  display: inline-block;
+  padding: 0 0.25rem;
+  text-decoration: underline;
+}
+
+footer ul li:first-child a {
+  padding: 0 0.25rem 0 0;
+}
+
+footer ul li a:hover {
+
+}
+
+/* Media Query for 1024px wide */
+@media screen and (min-width: 1024px){
+  #brand {
+    display: none;
+  }
+
+  nav ul {
+    display: block;
+    max-height: 4.75rem;
+    overflow: none;
+    width: 100%;
+    text-align: center;
+    visibility: visible;
+    border: 1px solid transparent;
+  }
+
+  nav ul li {
+    display: inline;
+    padding: 0 0.25rem;
+  }
+
+  nav ul li:first-child {
+    padding-left: 0;
+  }
+
+  nav ul li:last-child {
+    padding-right: 0;
+  }
+
+  nav ul li a {
+    display: inline-block;
+    color: #cdcdcd;
+    padding: 1rem;
+    border-bottom: 2px solid transparent;
+  }
+
+  nav ul li a:hover {
+    color: #ffffff;
+    border-bottom: 2px solid #4C387D;
+  }
+
+  .hero {
+    margin: 0 auto;
+    width: 50%;
+  }
+
+  #gameWrapper {
+    display: block;
+  }
+}

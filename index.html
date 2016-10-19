@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TwitchCon 2017</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <div id="brand">
+          <div id="nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <h1><a href="#">TwitchCon 2017</a></h1>
+        </div>
+        <ul>
+          <li><a href="">About</a></li>
+          <li><a href="">Schedule</a></li>
+          <li><a href="">Tickets</a></li>
+          <li><a href="">Travel</a></li>
+          <li><a href="">Guests</a></li>
+          <li><a href="">Exhibitors</a></li>
+          <li><a href="">FAQ</a></li>
+          <li><a href="">Contact</a></li>
+        </ul>
+      </nav>
+      <main>
+        <div class="notification-bar">
+          <p><i class="fa fa-lg fa-mobile fa-fw"></i> The official app is here!  <a href="">Get It!</a></p>
+        </div>
+        <div class="hero">
+          <h1>TwitchCon<small> 2017</small></h1>
+          <p>September 30 - October 2 | <span>San Diego, CA</span></p>
+          <p>Tickets and Hotel Rates Available Now</p>
+          <form action="" method="post">
+            <input type="email" name="email">
+            <input type="submit" name="submit" value="Sign up for updates!">
+          </form>
+          <div id="gameWrapper">
+            <canvas id="background" width="600" height="360">
+              Your browser does not support canvas.  Please try again with a different browser.
+            </canvas>
+            <canvas id="main" width="600" height="360"></canvas>
+            <canvas id="ship" width="600" height="360"></canvas>
+
+            <div class="game-element start-screen" id="start-screen">Press Start to Play<p id="startBtn">Start</p></div>
+            <div class="game-element score">SCORE: <span id="score">0</span></div>
+            <div class="game-element game-over" id="game-over">GAME OVER<p><span id="restart">Restart</span></p></div>
+            <div class="game-element loading" id="loading">LOADING...<p>Please wait</p></div>
+            <!-- Angablade wuz here -->
+            <button class="game-element" id="mute">Mute</button>
+          </div>
+        </div>
+      </main>
+    </div>
+    <footer>
+      <p>&copy; 2016 Twitch Interactive, Inc.</p>
+      <ul>
+        <li><a href="">Blog.twitch.tv</a></li>
+        <li><a href="">TwitchCon</a></li>
+        <li><a href="">Facebook</a></li>
+        <li><a href="">Facebook</a></li>
+      </ul>
+    </footer>
+
+    <script src="assets/js/mobilenav.js"></script>
+    <script data-main="assets/js/app" src="assets/js/vendor/require.min.js"></script>
+  </body>
+</html>
