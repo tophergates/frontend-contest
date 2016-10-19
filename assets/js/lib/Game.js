@@ -10,12 +10,13 @@ define([
   'SoundPool',
   'QuadTree'
 ], function(Background, Bullet, Enemy, imageRepository, Input, Pool, requestAnimFrame, Ship, SoundPool, QuadTree){
-  var game = new Game();
-  var startButton = document.getElementById('startBtn');
+  var game          = new Game();
+  var loadingScreen = document.getElementById('loading');
+  var startButton   = document.getElementById('startBtn');
   var restartButton = document.getElementById('restart');
-  var score = document.getElementById('score');
-  var muteButton = document.getElementById('mute');
-  var muted = false;
+  var score         = document.getElementById('score');
+  var scoreBoard    = document.getElementById('score-board');
+  var muteButton    = document.getElementById('mute');
 
   /**
    * Creates the Game object which will hold all objects and data
@@ -30,6 +31,8 @@ define([
   	 * running on older browsers.
   	 */
      this.init = function(){
+       this.playCount = 0;
+
        // Get the canvas element
        this.bgCanvas   = document.getElementById('background');
        this.shipCanvas = document.getElementById('ship');
@@ -37,8 +40,6 @@ define([
 
        // Test to see if canvas is supported
        if(this.bgCanvas.getContext){
-         this.gameCount   = 0;
-
          this.bgContext   = this.bgCanvas.getContext('2d');
          this.shipContext = this.shipCanvas.getContext('2d');
          this.mainContext = this.mainCanvas.getContext('2d');
@@ -71,11 +72,11 @@ define([
 
          this.ship.init(this.shipStartX, this.shipStartY, imageRepository.spaceship.width, imageRepository.spaceship.height);
 
-         this.enemyBulletPool = new Pool(30);
+         this.enemyBulletPool = new Pool(36);
          this.enemyBulletPool.init('enemyBullet');
 
          // Initialize the enemy pool object
-         this.enemyPool = new Pool(30);
+         this.enemyPool = new Pool(18);
          this.enemyPool.init('enemy', this.enemyBulletPool);
          this.spawnWave();
 
@@ -124,17 +125,23 @@ define([
            y += spacer;
          }
        }
+
+       // Speed this bitch up!
+       this.background.speed += 1.5;
      };
 
      // Start screen
      this.startScreen = function(){
        var startScreen = document.getElementById('start-screen');
        startScreen.style.display = 'block';
+       muteButton.style.display  = 'block';
      };
 
      // Start the animation loop
      this.start = function(){
-       this.gameCount++;
+       game.playCount++;
+
+       scoreBoard.style.display  = 'block';
        this.ship.draw();
        this.backgroundAudio.play();
        animate();
@@ -176,7 +183,7 @@ define([
   function checkReadyState(){
     if(game.gameOverAudio.readyState === 4 && game.backgroundAudio.readyState === 4){
       window.clearInterval(game.checkAudio);
-      document.getElementById('loading').style.display = "none";
+      loadingScreen.style.display = "none";
       game.startScreen();
     }
   }
@@ -250,7 +257,7 @@ define([
     if(!game.ship.alive && Input.KEY_STATUS.enter){
       game.restart();
     }
-    else if(game.ship.alive && Input.KEY_STATUS.enter){
+    else if(game.ship.alive && Input.KEY_STATUS.enter && game.playCount === 0){
       document.getElementById('start-screen').style.display = 'none';
       game.start();
     }
@@ -258,15 +265,17 @@ define([
 
   // Mute Audio Button
   muteButton.addEventListener('click', function(){
-    if(game.backgroundAudio.volume === .25){
-        muteButton.innerHTML = 'Unmute';
+    if(game.backgroundAudio.volume > 0){
+        muteButton.innerHTML = '<i class="fa fa-lg fa-fw fa-volume-off"></i>';
+        muteButton.setAttribute('class', 'game-element active');
 		    game.backgroundAudio.volume = 0;
 				game.gameOverAudio.volume = 0;
 		}
 		else {
-      muteButton.innerHTML = 'Mute';
-			game.backgroundAudio.volume = .25;
-			game.gameOverAudio.volume = .25;
+      muteButton.innerHTML = '<i class="fa fa-lg fa-fw fa-volume-up"></i>';
+      muteButton.setAttribute('class', 'game-element');
+			game.backgroundAudio.volume = .15;
+			game.gameOverAudio.volume = .15;
 		}
   }, false);
 

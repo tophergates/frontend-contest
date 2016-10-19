@@ -8,7 +8,7 @@ define(['imageRepository', 'SoundPool', 'Drawable'], function(imageRepository, S
    * Enemy ship object
   */
   function Enemy(pool){
-    var percentFire      = .01;
+    var percentFire      = 0.01;
     var chance           = 0;
     this.alive           = false;
     this.collidableWith  = 'bullet';
@@ -16,6 +16,7 @@ define(['imageRepository', 'SoundPool', 'Drawable'], function(imageRepository, S
     this.enemyBulletPool = pool;
 
     this.spawn = function(x, y, speed){
+      percentFire += 0.01;
       this.x = x;
       this.y = y;
       this.speed = speed;
@@ -48,7 +49,7 @@ define(['imageRepository', 'SoundPool', 'Drawable'], function(imageRepository, S
       if(!this.isColliding){
         this.context.drawImage(imageRepository.enemy, this.x, this.y);
 
-        chance = Math.floor(Math.random() * 101);
+        chance = Math.floor(Math.random() * (100 - 1 + 1) + 1);
 
         if(chance / 100 < percentFire){
           this.fire();

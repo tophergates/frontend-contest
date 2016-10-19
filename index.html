@@ -38,13 +38,9 @@
           <p><i class="fa fa-lg fa-mobile fa-fw"></i> The official app is here!  <a href="">Get It!</a></p>
         </div>
         <div class="hero">
-          <h1>TwitchCon<small> 2017</small></h1>
+          <h1>TwitchCon 2017</h1>
           <p>September 30 - October 2 | <span>San Diego, CA</span></p>
           <p>Tickets and Hotel Rates Available Now</p>
-          <form action="" method="post">
-            <input type="email" name="email">
-            <input type="submit" name="submit" value="Sign up for updates!">
-          </form>
           <div id="gameWrapper">
             <canvas id="background" width="600" height="360">
               Your browser does not support canvas.  Please try again with a different browser.
@@ -53,22 +49,25 @@
             <canvas id="ship" width="600" height="360"></canvas>
 
             <div class="game-element start-screen" id="start-screen">Press Start to Play<p id="startBtn">Start</p></div>
-            <div class="game-element score">SCORE: <span id="score">0</span></div>
+            <div class="game-element score" id="score-board">SCORE: <span id="score">0</span></div>
             <div class="game-element game-over" id="game-over">GAME OVER<p><span id="restart">Restart</span></p></div>
             <div class="game-element loading" id="loading">LOADING...<p>Please wait</p></div>
             <!-- Angablade wuz here -->
-            <button class="game-element" id="mute">Mute</button>
+            <button class="game-element" id="mute"><i class="fa fa-lg fa-fw fa-volume-up"></i></button>
           </div>
+          <form action="" method="post">
+            <input type="email" name="email">
+            <input type="submit" name="submit" value="Sign up for updates!">
+          </form>
         </div>
       </main>
     </div>
     <footer>
       <p>&copy; 2016 Twitch Interactive, Inc.</p>
       <ul>
-        <li><a href="">Blog.twitch.tv</a></li>
-        <li><a href="">TwitchCon</a></li>
-        <li><a href="">Facebook</a></li>
-        <li><a href="">Facebook</a></li>
+        <li><i class="twitch fa fa-lg fa-fw fa-twitch"></i> <a href="">Blog.twitch.tv</a></li>
+        <li><i class="twitch fa fa-lg fa-fw fa-twitch"></i> <a href="">TwitchCon</a></li>
+        <li><i class="twitch fa fa-lg fa-fw fa-facebook"></i> <a href="">Facebook</a></li>
       </ul>
     </footer>
 

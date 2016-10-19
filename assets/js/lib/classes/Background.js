@@ -5,9 +5,10 @@ define(['imageRepository', 'Drawable'], function(imageRepository, Drawable){
    * canvas and creates the illusion of movement by panning the image.
   */
   function Background(){
-    this.speed = 1.25;
+    this.speed = 1;
 
     this.draw = function(){
+      //this.x += this.speed;
       this.x += this.speed;
 
       this.context.clearRect(0, 0, imageRepository.background.width, imageRepository.background.height);

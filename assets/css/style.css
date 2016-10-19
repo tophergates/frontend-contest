@@ -29,15 +29,18 @@ a, a:link, a:visited, a:hover {
 .container {
   width: 100%;
   min-height: 100vh;
-  background: black url('../img/back.png') center bottom repeat;
+  background: black url('../img/back.png') repeat;
   background-attachment: fixed;
   background-size: cover;
-  animation: backgroundScroll 15s linear infinite;
+  animation: backgroundScroll 30s linear infinite;
 }
 
 @keyframes backgroundScroll {
-  from {background-position: 0 0;}
-  to {background-position: 1000px 0;}
+  0% {background-position: 0 0;}
+  25% {background-position: 1024px 768px;}
+  50% {background-position: 2048px 1536px;}
+  75% {background-position: 1024px 768px;}
+  99% {background-position: 1px 1px;}
 }
 
 nav {
@@ -187,7 +190,11 @@ main {
 }
 
 .notification-bar {
-  background-color: rgba(186,186,186, 0.75);
+  background: linear-gradient(to bottom, rgba(186,186,186, 0.65) 0%, rgba(186,186,186, 0.95) 100%);
+  background: -webkit-linear-gradient(top, rgba(186,186,186, 0.65) 0%, rgba(186,186,186, 0.95) 100%);
+  background: -moz-linear-gradient(top, rgba(186,186,186, 0.65) 0%, rgba(186,186,186, 0.95) 100%);
+  background: -ms-linear-gradient(top, rgba(186,186,186, 0.65) 0%, rgba(186,186,186, 0.95) 100%);
+  background: -o-linear-gradient(top, rgba(186,186,186, 0.65) 0%, rgba(186,186,186, 0.95) 100%);
   padding: 0.5rem 1rem;
   width: 100%;
   zoom: 1;
@@ -222,7 +229,7 @@ main {
 
 .hero {
   padding: 1rem;
-  margin-top: 15%;
+  margin-top: 5rem;
   text-align: center;
 }
 
@@ -244,6 +251,7 @@ main {
 
 .hero p:nth-child(2){
   color: #cdcdcd;
+  margin-bottom: 0.75rem;
 }
 
 .hero form {
@@ -254,27 +262,22 @@ main {
 .hero input[name="email"] {
   font-family: "Press Start 2P";
   font-size: 0.75rem;
-  background: rgba(15, 15, 15, 0.5);
-  box-shadow: 0 0 2.25rem 0.25rem #000;
+  background: rgba(255, 255, 255, 0.25);
   border: 0px solid transparent;
-  color: rgb(0, 195, 50);
-  animation: blink-empty 1s infinite;
+  box-shadow: 0 0 10rem 0.05rem #000;
+  color: rgba(255,255,255,0.5);
+  animation: blink-empty 1.5s infinite;
   border-left: 10px solid transparent;
   margin: 0.25rem;
   padding: 0.5rem 0.25rem;
 }
 
 .hero input[name="email"]:focus {
-  animation: none;
-  border-left: 10px solid  #ADD8E6;
+  outline: none;
 }
 
 @keyframes blink-empty {
   50% {border-left: 10px solid  #ADD8E6;}
-}
-
-.hero input[name="email"]:focus {
-  outline: none;
 }
 
 .hero input[type="submit"] {
@@ -295,15 +298,16 @@ main {
   margin: 3.25rem auto 0 auto;
   width: 600px;
   height: 360px;
-  box-shadow: 0px 0px 1rem 2px rgba(250,30,10,0.25);
-  border-radius: 8px;
+  box-shadow: 0px 0px 0.15rem 0.25rem rgba(70,54,124,0.55);
+  border-radius: 0.75rem;
 }
 
 #gameWrapper canvas {
   position: absolute;
   top: 0;
   left: 0;
-  background: transparent;
+  background: rgba(70,54,124,0.1);
+  border-radius: 0.75rem;
   width: 100%;
   height: 100%;
 }
@@ -311,89 +315,137 @@ main {
 #background {
   z-index: 1;
 }
+
 #main {
   z-index: 2;
 }
+
 #ship, .game-element {
   z-index: 3;
 }
 
-.score {
-  position: absolute;
-  top: 5px;
-  right: 10px;
-  color: rgba(255, 255, 255, 0.5);
-  text-shadow: 0px 0px #999;
-  font-family: Helvetica, sans-serif;
-  cursor: default;
-}
-.game-over {
+.loading {
   font-family: "Press Start 2P";
+  font-size: 1.15rem;
+  line-height: 2.15rem;
   position: absolute;
-  top: 150px;
-  left: 230px;
-  color: rgba(255, 255, 255, 0.9);
-  font-family: Helvetica, sans-serif;
-  font-size: 30px;
+  top: 7rem;
+  left: 12.5rem;
+  color: rgba(200,60,100,0.25);
   cursor: default;
-  display: none;
+  text-align: center;
 }
-.game-over span {
-  font-size: 20px;
-  cursor: pointer;
-  position: relative;
-  left: 50px;
-}
-.game-over span:hover {
-  color: #FFD700;
-}
-#mute {
-  position: absolute;
-  top: 340px;
-  right: 10px;
-  cursor: pointer;
-}
+
 .start-screen {
   font-family: "Press Start 2P";
+  font-size: 1.15rem;
   position: absolute;
-  top: 150px;
-  left: 185px;
-  color: #FF7F00;
-  font-family: Helvetica, sans-serif;
-  font-size: 30px;
+  top: 7rem;
+  left: 8rem;
+  color: rgba(255,255,255,0.50);
   cursor: default;
   display: none;
 }
+
 #startBtn {
-  padding: 5px 0;
-  border: 2px solid black;
-  border-radius: 2px;
-  background-color: #ccc;
+  font-size: 0.85rem;
   text-align: center;
-  font-size: 20px;
   cursor: pointer;
-  margin-top: 10px;
-  color: #999;
+  margin-top: 2rem;
+  background: rgba(0,54,124,0.95);
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: #cdcdcd;
+  padding: 0.5rem 0;
 }
+
 #startBtn:hover {
-  color: #333;
+  border: 1px solid rgba(255, 255, 255, 0.50);
 }
-.loading {
+
+#startBtn:active {
+  margin-top: 2.1rem;
+}
+
+#mute {
+  font-family: "Open Sans", sans-serif;
+  color: rgba(255,255,255,0.50);
   position: absolute;
-  top: 100px;
-  left: 210px;
-  color: #FF7F00;
-  font-family: Helvetica, sans-serif;
-  font-size: 30px;
+  bottom: 0.50rem;
+  right: 0.50rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  background: transparent;
+  border: none;
+  display: none;
+}
+
+#mute.active {
+  color: rgba(200,50,50,0.50);
+}
+
+#mute:focus {
+  outline: none;
+}
+
+#score-board {
+  display: none;
+}
+
+.score {
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.50);
+  position: absolute;
+  top: 0.25rem;
+  right: 0.75rem;
   cursor: default;
 }
 
+.game-over {
+  font-family: "Press Start 2P";
+  font-size: 1.5rem;
+  position: absolute;
+  top: 7.5rem;
+  left: 12rem;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: default;
+  display: none;
+}
+
+.game-over span {
+  font-size: 0.85rem;
+  display: block;
+  font-size: 0.85rem;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  background: rgba(0,54,124,0.95);
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: #cdcdcd;
+  padding: 0.5rem 0;
+}
+
+.game-over span:hover {
+  border: 1px solid rgba(255, 255, 255, 0.50);
+}
+
+.game-over span:active {
+  margin-top: 2.1rem;
+}
+
 footer {
+  background: linear-gradient(to bottom, #acacac 0%, #fefefe 100%);
   background: -webkit-linear-gradient(top, #acacac 0%, #fefefe 100%);
+  background: -moz-linear-gradient(top, #acacac 0%, #fefefe 100%);
+  background: -ms-linear-gradient(top, #acacac 0%, #fefefe 100%);
+  background: -o-linear-gradient(top, #acacac 0%, #fefefe 100%);
   color: #333333;
   font-size: 0.85rem;
+  line-height: 2rem;
   height: 5.75rem;
-  padding: 2rem 0.25rem;
+  padding: 1rem 0.25rem;
 }
 
 footer ul {
@@ -402,13 +454,18 @@ footer ul {
 
 footer ul li {
   display: inline;
+  margin-left: 1rem;
+}
+
+footer ul li:first-child {
+  margin-left: 0;
 }
 
 footer ul li a, footer ul li a:link, footer ul li a:visited {
   color: #333333;
   display: inline-block;
   padding: 0 0.25rem;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 footer ul li:first-child a {
@@ -417,6 +474,35 @@ footer ul li:first-child a {
 
 footer ul li a:hover {
 
+}
+
+/* Media Query for 360px wide */
+@media screen and (max-width: 360px){
+  footer {
+    text-align: center;
+    font-size: 1rem;
+    line-height: 2.25rem;
+  }
+  footer ul li, footer ul li:first-child {
+    display: block;
+    margin: 0 1rem;
+    padding: 0.5rem 0;
+  }
+
+  footer ul li {
+
+  }
+}
+
+/* Media Query for 600px wide */
+@media screen and (min-width: 630px){
+  .hero {
+    margin: 2.5rem auto 0 auto;
+  }
+
+  #gameWrapper {
+    display: block;
+  }
 }
 
 /* Media Query for 1024px wide */
@@ -461,11 +547,6 @@ footer ul li a:hover {
   }
 
   .hero {
-    margin: 0 auto;
-    width: 50%;
-  }
-
-  #gameWrapper {
-    display: block;
+    margin: 2.5rem auto 0 auto;
   }
 }
