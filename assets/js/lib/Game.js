@@ -85,12 +85,12 @@ define([
          });
 
          // Setup the Game Audio
-         this.backgroundAudio = new Audio('assets/sounds/kick_shock.wav');
+         this.backgroundAudio = new Audio('assets/sounds/Space_Idea.mp3');
          this.backgroundAudio.loop = true;
          this.backgroundAudio.volume = 0.15;
          this.backgroundAudio.load();
 
-         this.gameOverAudio = new Audio('assets/sounds/game_over.wav');
+         this.gameOverAudio = new Audio('assets/sounds/assimilator.wav');
          this.gameOverAudio.loop = true;
          this.gameOverAudio.volume = 0.15;
          this.gameOverAudio.load();
