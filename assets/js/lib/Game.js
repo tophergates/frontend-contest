@@ -123,7 +123,7 @@ define([
        }
 
        // Speed this bitch up!
-       this.background.speed += 1.5;
+       this.background.speed += 1;
      };
 
      // Start screen
@@ -238,6 +238,7 @@ define([
        // Restart the game
        this.quadTree.clear();
        this.background.init(0, 0);
+       this.background.speed = 1;
        this.ship.init(this.shipStartX, this.shipStartY, imageRepository.spaceship.width, imageRepository.spaceship.height);
        this.enemyBulletPool.init('enemyBullet');
        this.enemyPool.init('enemy', this.enemyBulletPool);
