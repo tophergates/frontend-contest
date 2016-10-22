@@ -138,7 +138,7 @@ define([
        // Handle clicks on the start button
        var handleClick = function(){
          // remove the event listener
-         startButton.removeEventListener('click', handleClick, false);
+         unbindEvents();
 
          // Hide the start screen and then remove it from the DOM
          startScreen.style.display = 'none';
@@ -153,7 +153,7 @@ define([
        var handleKeyDown = function(){
          if(Input.KEY_STATUS.enter){
            // Remove the event listener
-           document.removeEventListener('keydown', handleKeyDown, false);
+           unbindEvents();
 
            // Hide the start screen and then remove from the DOM
            startScreen.style.display = 'none';
@@ -163,6 +163,11 @@ define([
            // Start the game
            game.start();
          }
+       };
+
+       var unbindEvents = function(){
+         startButton.removeEventListener('click', handleClick, false);
+         document.removeEventListener('keydown', handleKeyDown, false);
        };
 
        // Bind events to click and enter key
@@ -196,26 +201,30 @@ define([
        gameOverScreen.style.display = 'block';
 
        var handleClick = function(){
-         restartButton.removeEventListener('click', handleClick, false);
-
-         this.gameOverAudio.pause();
-         gameOverScreen.style.display = 'none';
-         game.restart();
-       };
-
-       var handleKeyDown = function(){
-         if(!game.ship.alive && Input.KEY_STATUS.enter){
-           document.removeEventListener('keydown', handleKeyDown, false);
-
-           this.gameOverAudio.pause();
+         if(!game.ship.alive){
+           unbindEvents();
            gameOverScreen.style.display = 'none';
            game.restart();
          }
        };
 
+       var handleKeyDown = function(){
+         if(!game.ship.alive && Input.KEY_STATUS.enter){
+           unbindEvents();
+
+           gameOverScreen.style.display = 'none';
+           game.restart();
+         }
+       };
+
+       var unbindEvents = function(){
+         document.removeEventListener('keydown', handleKeyDown, false);
+         restartButton.removeEventListener('click', handleClick, false);
+       };
+
        // Bind events for click and keydown
-       restartButton.addEventListener('click', handleClick.bind(this), false);
-       document.addEventListener('keydown', handleKeyDown.bind(this), false);
+       restartButton.addEventListener('click', handleClick, false);
+       document.addEventListener('keydown', handleKeyDown, false);
      };
 
      this.restart = function(){
@@ -234,6 +243,7 @@ define([
        this.enemyPool.init('enemy', this.enemyBulletPool);
        this.spawnWave();
 
+       this.gameOverAudio.pause();
        this.backgroundAudio.currentTime = 0;
        this.backgroundAudio.play();
 

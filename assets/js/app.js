@@ -8,17 +8,17 @@ requirejs.config({
     Game: 'lib/Game',
     imageRepository: 'lib/utils/helpers/imageRepository',
     Input: 'lib/utils/helpers/Input',
+    mobilenav: 'mobilenav',
     Pool: 'lib/classes/Pool',
     requestAnimFrame: 'lib/utils/helpers/requestAnimFrame',
     Ship: 'lib/classes/Ship',
     SoundPool: 'lib/classes/SoundPool',
     QuadTree: 'lib/utils/helpers/QuadTree',
     whenReady: 'vendor/whenReady'
-  },
-  urlArgs: "bust=" + (new Date()).getTime()
+  }
 });
 
-require(['imageRepository', 'Game', 'whenReady'], function(imageRepository, Game, whenReady){
+require(['imageRepository', 'Game', 'mobilenav', 'whenReady'], function(imageRepository, Game, whenReady){
   document.whenReady(function(){
     var restartButton = document.getElementById('restart');
 
