@@ -167,13 +167,11 @@ define([
 
        var unbindEvents = function(){
          startButton.removeEventListener('click', handleClick, false);
-         startButton.removeEventListener('touchend', handleClick, false);
          document.removeEventListener('keydown', handleKeyDown, false);
        };
 
        // Bind events to click and enter key
        startButton.addEventListener('click', handleClick, false);
-       startButton.addEventListener('touchend', handleClick, false);
        document.addEventListener('keydown', handleKeyDown, false);
      };
 
@@ -222,12 +220,10 @@ define([
        var unbindEvents = function(){
          document.removeEventListener('keydown', handleKeyDown, false);
          restartButton.removeEventListener('click', handleClick, false);
-         restartButton.removeEventListener('touchend', handleClick, false);
        };
 
        // Bind events for click and keydown
        restartButton.addEventListener('click', handleClick, false);
-       restartButton.addEventListener('touchend', handleClick, false);
        document.addEventListener('keydown', handleKeyDown, false);
      };
 
@@ -381,7 +377,6 @@ define([
 
   // Mute Audio Button
   muteButton.addEventListener('click', toggleAudio, false);
-  muteButton.addEventListener('touchend', toggleAudio, false);
 
   return game;
 });

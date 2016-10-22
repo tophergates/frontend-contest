@@ -69,32 +69,6 @@ define(['imageRepository', 'SoundPool', 'Input', 'Drawable', 'Pool'], function(i
         }
       }
 
-      // Check for tilt
-      else if(Input.VELOCITY.y === 90 || Input.VELOCITY.y === -90){
-        this.context.clearRect(this.x, this.y, this.width, this.height);
-        var move;
-
-        // Moving left
-        if(Input.VELOCITY.a < 0 || Input.VELOCITY.a === -180){
-          move = Math.floor((Math.abs(Input.VELOCITY.x) - 90) / this.speed);
-          this.x += move;
-        }
-        // Moving right
-        else if(Input.VELOCITY.a >= 0 || Input.VELOCITY.a === 180){
-          move = Math.floor(Input.VELOCITY.x + 90);
-          this.x += move;
-        }
-
-        console.log(move, this.x);
-
-        if(this.x <= 0){
-          this.x = 0;
-        }
-        if(this.x >= this.canvasWidth - this.width){
-          this.x = this.canvasWidth - this.width;
-        }
-      }
-
       this.draw();
 
       if(Input.KEY_STATUS.space && counter >= fireRate){
