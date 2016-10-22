@@ -33,12 +33,10 @@ define([], function(){
   }
 
   function handleTouchStart(e){
-    e.preventDefault();
     this.KEY_STATUS[KEY_CODES[32]] = true;
   }
 
   function handleTouchEnd(e){
-    e.preventDefault();
     this.KEY_STATUS[KEY_CODES[32]] = false;
   }
 
