@@ -11,11 +11,6 @@ define([
   'QuadTree'
 ], function(Background, Bullet, Enemy, imageRepository, Input, Pool, requestAnimFrame, Ship, SoundPool, QuadTree){
   var game          = new Game();
-  var loadingScreen = document.getElementById('loading');
-  var startButton   = document.getElementById('startBtn');
-  var restartButton = document.getElementById('restart');
-  var score         = document.getElementById('score');
-  var scoreBoard    = document.getElementById('score-board');
   var muteButton    = document.getElementById('mute');
 
   /**
@@ -32,6 +27,7 @@ define([
   	 */
      this.init = function(){
        this.playCount = 0;
+       this.isMuted   = false;
 
        // Get the canvas element
        this.bgCanvas   = document.getElementById('background');
@@ -133,12 +129,50 @@ define([
      // Start screen
      this.startScreen = function(){
        var startScreen = document.getElementById('start-screen');
+       var startButton   = document.getElementById('startBtn');
+
+       // Display the start screen and mute button
        startScreen.style.display = 'block';
        muteButton.style.display  = 'block';
+
+       // Handle clicks on the start button
+       var handleClick = function(){
+         // remove the event listener
+         startButton.removeEventListener('click', handleClick, false);
+
+         // Hide the start screen and then remove it from the DOM
+         startScreen.style.display = 'none';
+         startButton.remove();
+         startScreen.remove();
+
+         // Start the game
+         game.start();
+       };
+
+       // Handle the enter key to start the game
+       var handleKeyDown = function(){
+         if(Input.KEY_STATUS.enter){
+           // Remove the event listener
+           document.removeEventListener('keydown', handleKeyDown, false);
+
+           // Hide the start screen and then remove from the DOM
+           startScreen.style.display = 'none';
+           startButton.remove();
+           startScreen.remove();
+
+           // Start the game
+           game.start();
+         }
+       };
+
+       // Bind events to click and enter key
+       startButton.addEventListener('click', handleClick, false);
+       document.addEventListener('keydown', handleKeyDown, false);
      };
 
      // Start the animation loop
      this.start = function(){
+       var scoreBoard    = document.getElementById('score-board');
        game.playCount++;
 
        scoreBoard.style.display  = 'block';
@@ -148,16 +182,44 @@ define([
      };
 
      this.gameOver = function(){
+       var gameOverScreen = document.getElementById('game-over');
+       var restartButton  = document.getElementById('restart');
+
+       // Pause the background audio
        this.backgroundAudio.pause();
+
+       // Reset the gameover audio and play it
        this.gameOverAudio.currentTime = 0;
        this.gameOverAudio.play();
-       document.getElementById('game-over').style.display = 'block';
+
+       // Display the game over screen
+       gameOverScreen.style.display = 'block';
+
+       var handleClick = function(){
+         restartButton.removeEventListener('click', handleClick, false);
+
+         this.gameOverAudio.pause();
+         gameOverScreen.style.display = 'none';
+         game.restart();
+       };
+
+       var handleKeyDown = function(){
+         if(!game.ship.alive && Input.KEY_STATUS.enter){
+           document.removeEventListener('keydown', handleKeyDown, false);
+
+           this.gameOverAudio.pause();
+           gameOverScreen.style.display = 'none';
+           game.restart();
+         }
+       };
+
+       // Bind events for click and keydown
+       restartButton.addEventListener('click', handleClick.bind(this), false);
+       document.addEventListener('keydown', handleKeyDown.bind(this), false);
      };
 
      this.restart = function(){
-       // Pause the game over audio and hide the game over DIV
-       this.gameOverAudio.pause();
-       document.getElementById('game-over').style.display = 'none';
+       var score = document.getElementById('score');
 
        // Clear all canvases
        this.bgContext.clearRect(0, 0, this.bgCanvas.width, this.bgCanvas.height);
@@ -171,8 +233,13 @@ define([
        this.enemyBulletPool.init('enemyBullet');
        this.enemyPool.init('enemy', this.enemyBulletPool);
        this.spawnWave();
+
        this.backgroundAudio.currentTime = 0;
        this.backgroundAudio.play();
+
+       if(this.isMuted){
+         toggleAudio('off');
+       }
 
        score.innerHTML = 0;
 
@@ -180,10 +247,66 @@ define([
      };
   }
 
+  function toggleAudio(onoff){
+    var laserPool     = game.ship.laserPool.pool;
+    var explosionPool = game.enemyPool.getPool()[0].explosionPool.pool;
+    var volume        = 0.15;
+
+    var mute = function(){
+      game.isMuted = true;
+
+      // Set mute button to reflect the volume has been muted
+      muteButton.innerHTML = '<i class="fa fa-lg fa-fw fa-volume-off"></i>';
+      muteButton.setAttribute('class', 'game-element active');
+
+      // Mute the game background audio and game over audio
+	    game.backgroundAudio.volume = 0;
+			game.gameOverAudio.volume = 0;
+
+      // Loop through laser and explosion sound pools to mute audio
+      for(var i=0; i<laserPool.length; i++){
+        laserPool[i].volume = 0;
+      }
+      for(var i=0; i<explosionPool.length; i++){
+        explosionPool[i].volume = 0;
+      }
+    };
+
+    var unmute = function(){
+      game.isMuted = false;
+
+      // Set mute button to reflect the volume is unmuted
+      muteButton.innerHTML = '<i class="fa fa-lg fa-fw fa-volume-up"></i>';
+      muteButton.setAttribute('class', 'game-element');
+
+      // Unmute the background audio and game over audio
+			game.backgroundAudio.volume = volume;
+			game.gameOverAudio.volume = volume;
+
+      // Loop through laser and explosion sound pools to unmute audio
+      for(var i=0; i<laserPool.length; i++){
+        laserPool[i].volume = volume;
+      }
+      for(var i=0; i<explosionPool.length; i++){
+        explosionPool[i].volume = volume;
+      }
+    };
+
+    if(game.backgroundAudio.volume > 0 || onoff === 'off'){
+      mute();
+		}
+		else {
+      unmute();
+		}
+  }
+
   function checkReadyState(){
+    var loadingScreen = document.getElementById('loading');
+
     if(game.gameOverAudio.readyState === 4 && game.backgroundAudio.readyState === 4){
       window.clearInterval(game.checkAudio);
       loadingScreen.style.display = "none";
+      loadingScreen.remove();
       game.startScreen();
     }
   }
@@ -241,43 +364,8 @@ define([
     }
   }
 
-  // Start button click
-  startBtn.addEventListener('click', function(){
-    document.getElementById('start-screen').style.display = 'none';
-    game.start();
-  }, false);
-
-  // Restart game button
-  restartButton.addEventListener('click', function(){
-    game.restart();
-  }, false);
-
-  // Restart game "ENTER" keydown
-  document.addEventListener('keydown', function(){
-    if(!game.ship.alive && Input.KEY_STATUS.enter){
-      game.restart();
-    }
-    else if(game.ship.alive && Input.KEY_STATUS.enter && game.playCount === 0){
-      document.getElementById('start-screen').style.display = 'none';
-      game.start();
-    }
-  }, false);
-
   // Mute Audio Button
-  muteButton.addEventListener('click', function(){
-    if(game.backgroundAudio.volume > 0){
-        muteButton.innerHTML = '<i class="fa fa-lg fa-fw fa-volume-off"></i>';
-        muteButton.setAttribute('class', 'game-element active');
-		    game.backgroundAudio.volume = 0;
-				game.gameOverAudio.volume = 0;
-		}
-		else {
-      muteButton.innerHTML = '<i class="fa fa-lg fa-fw fa-volume-up"></i>';
-      muteButton.setAttribute('class', 'game-element');
-			game.backgroundAudio.volume = .15;
-			game.gameOverAudio.volume = .15;
-		}
-  }, false);
+  muteButton.addEventListener('click', toggleAudio, false);
 
   return game;
 });

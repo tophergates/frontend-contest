@@ -1,6 +1,6 @@
 define(['imageRepository', 'SoundPool', 'Drawable'], function(imageRepository, SoundPool, Drawable){
-  var explosion = new SoundPool(20);
-  explosion.init('explosion');
+  var explosionPool = new SoundPool(20);
+  explosionPool.init('explosion');
 
   var score = document.getElementById('score');
 
@@ -14,6 +14,7 @@ define(['imageRepository', 'SoundPool', 'Drawable'], function(imageRepository, S
     this.collidableWith  = 'bullet';
     this.type            = 'enemy';
     this.enemyBulletPool = pool;
+    this.explosionPool   = explosionPool;
 
     this.spawn = function(x, y, speed){
       percentFire += 0.01;
@@ -60,7 +61,7 @@ define(['imageRepository', 'SoundPool', 'Drawable'], function(imageRepository, S
         var curScore = parseInt(score.innerHTML);
         var newScore = curScore + 10;
         score.innerHTML = newScore;
-        explosion.get();
+        this.explosionPool.get();
         return true;
       }
     };
