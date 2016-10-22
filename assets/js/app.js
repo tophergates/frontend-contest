@@ -20,8 +20,6 @@ requirejs.config({
 
 require(['imageRepository', 'Game', 'mobilenav', 'whenReady'], function(imageRepository, Game, whenReady){
   document.whenReady(function(){
-    var restartButton = document.getElementById('restart');
-
     var imageCheck = window.setInterval(function(){
       if(imageRepository.imagesLoaded){
         init();
